@@ -21,7 +21,7 @@ echo "Running post-deploy commands..."
 ${SSH_CMD} ${DEPLOY_USER}@${DEPLOY_HOST} \
 "cd ${DEPLOY_PATH} && \
 composer install --no-dev --optimize-autoloader && \
-npm ci && \
+npm install && \
 npm run build && \
 mkdir -p storage/framework/{sessions,views,cache} && \
 php artisan optimize:clear && \
