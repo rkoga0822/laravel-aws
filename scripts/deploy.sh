@@ -18,9 +18,15 @@ rsync -avz --delete \
 # サーバー上でデプロイ後の処理を実行
 echo "Running post-deploy commands..."
 ${SSH_CMD} ${DEPLOY_USER}@${DEPLOY_HOST} \
-  "cd ${DEPLOY_PATH} && \
-   composer install --no-dev --optimize-autoloader && \
-   php artisan config:clear && \
-   php artisan migrate --force"
+"cd ${DEPLOY_PATH} && \
+composer install --no-dev --optimize-autoloader && \
+npm ci && \
+npm run build && \
+mkdir -p storage/framework/{sessions,views,cache} && \
+php artisan optimize:clear && \
+php artisan migrate --force && \
+php artisan storage:link && \
+sudo chown -R apache:apache storage bootstrap/cache && \
+sudo chmod -R 775 storage bootstrap/cache"
 
 echo "Deployed successfully!"
