@@ -28,6 +28,6 @@ php artisan optimize:clear && \
 php artisan migrate --force && \
 php artisan storage:link && \
 sudo chown -R ec2-user:apache storage bootstrap/cache && \
-sudo chmod -R 775 storage bootstrap/cache
+sudo chmod -R 775 storage bootstrap/cache"
 
 echo "Deployed successfully!"
