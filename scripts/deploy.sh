@@ -12,6 +12,7 @@ rsync -avz --delete \
   --exclude='.git' \
   --exclude='.env' \
   --exclude='vendor/' \
+  --exclude='node_modules/' \
   --exclude='storage/logs' \
   ./ ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}
 
