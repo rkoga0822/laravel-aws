@@ -7,7 +7,7 @@ SSH_CMD="ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
 echo "Deploying to staging..."
 
 # コードを転送（vendor/ はサーバー側で composer install するため除外）
-rsync -avz --delete \
+rsync -rvz --delete --no-times \
   -e "${SSH_CMD}" \
   --exclude='.git' \
   --exclude='.env' \
