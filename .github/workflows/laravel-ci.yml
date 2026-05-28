@@ -55,7 +55,7 @@ jobs:
           DB_PORT: 3306
           DB_DATABASE: laravel
           DB_USERNAME: root
-          DB_PASSWORD: wrong_password
+          DB_PASSWORD: root
         run: php artisan migrate --force
 
 
