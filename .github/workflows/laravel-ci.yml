@@ -27,28 +27,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # TODO①: PHP バージョンを 8.4 に指定する
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.4"
 
-      - name: Cache Composer dependencies
-        uses: actions/cache@v5
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+      # TODO②: Composer の vendor をキャッシュするステップをここに追加する
+      #         path: vendor
+      #         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Set up .env
-        run: |
-          cp .env.example .env
-          php artisan key:generate
+      # TODO③: .env ファイルの準備とアプリケーションキーの生成を追加する
 
-      - name: Run tests
+      - name: Run migrations
         env:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
@@ -56,4 +50,8 @@ jobs:
           DB_DATABASE: laravel
           DB_USERNAME: root
           DB_PASSWORD: root
-        run: php artisan test
+        run: php artisan migrate --force
+
+      # TODO④: テスト実行ステップを追加する
+      #         DB_CONNECTION / DB_HOST / DB_PORT / DB_DATABASE / DB_USERNAME / DB_PASSWORD を
+      #         環境変数として渡すこと
