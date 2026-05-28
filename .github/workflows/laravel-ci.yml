@@ -49,7 +49,11 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       # TODO③: .env ファイルの準備とアプリケーションキーの生成を追加する
-
+      - name: set up .env
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          
       - name: Run migrations
         env:
           DB_CONNECTION: mysql
