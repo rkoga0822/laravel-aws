@@ -49,6 +49,10 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       # TODO③: .env ファイルの準備とアプリケーションキーの生成を追加する
+      - name: set up .env
+        run: |
+          cp .env.example .env
+          php artisan key:generate
 
       - name: Run migrations
         env:
@@ -63,3 +67,12 @@ jobs:
       # TODO④: テスト実行ステップを追加する
       #         DB_CONNECTION / DB_HOST / DB_PORT / DB_DATABASE / DB_USERNAME / DB_PASSWORD を
       #         環境変数として渡すこと
+      - name: Run test
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: laravel
+          DB_USERNAME: root
+          DB_PASSWORD: root
+        run: php artisan test
